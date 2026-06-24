@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이음 | 목소리로 잇는 새로운 만남</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<style>
+  :root{
+    --brand:#FB376A;
+    --brand-deep:#D81B53;
+    --ink:#2A2024;
+    --ink-soft:#5C4F54;
+    --paper:#FFF8F5;
+    --paper-deep:#FCEFEA;
+    --rose-tint:#FFE3E9;
+    --gold:#F2A65A;
+    --line:#EAD9D3;
+    --white:#FFFFFF;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Pretendard',sans-serif;
+    font-weight:400;
+    line-height:1.7;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.serif{font-family:'Gowun Batang',serif;}
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 28px;}
+  .eyebrow{
+    font-size:13px;
+    letter-spacing:0.18em;
+    font-weight:700;
+    color:var(--brand-deep);
+    text-transform:uppercase;
+  }
+  /* ---------- nav ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    background:rgba(255,248,245,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    max-width:1140px;margin:0 auto;padding:18px 28px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .logo{
+    font-family:'Gowun Batang',serif;
+    font-size:22px;font-weight:700;
+    color:var(--ink);
+    display:flex;align-items:center;gap:8px;
+  }
+  .logo .dot{color:var(--brand);}
+  .navlinks{display:flex;gap:32px;font-size:14.5px;font-weight:500;color:var(--ink-soft);}
+  .navlinks a{transition:color .2s;}
+  .navlinks a:hover{color:var(--brand-deep);}
+  .nav-cta{
+    background:var(--brand);color:var(--white);
+    padding:10px 20px;border-radius:100px;
+    font-size:14px;font-weight:700;
+    box-shadow:0 6px 16px rgba(251,55,106,0.28);
+    transition:transform .2s, box-shadow .2s;
+  }
+  .nav-cta:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(251,55,106,0.36);}
+  @media (max-width:760px){ .navlinks{display:none;} }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding:168px 0 100px;
+    position:relative;
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1.1fr 0.9fr;gap:56px;align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(34px,5vw,58px);
+    line-height:1.28;
+    font-weight:700;
+    letter-spacing:-0.01em;
+  }
+  .hero h1 .hl{color:var(--brand);}
+  .hero p.sub{
+    margin-top:22px;
+    font-size:17.5px;
+    color:var(--ink-soft);
+    max-width:480px;
+  }
+  .hero-ctas{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--ink);color:var(--white);
+    padding:15px 28px;border-radius:100px;font-weight:700;font-size:15px;
+    box-shadow:0 8px 20px rgba(42,32,36,0.18);
+    transition:transform .2s;
+  }
+  .btn-primary:hover{transform:translateY(-2px);}
+  .btn-secondary{
+    border:1.5px solid var(--ink);color:var(--ink);
+    padding:15px 28px;border-radius:100px;font-weight:700;font-size:15px;
+    transition:background .2s, color .2s;
+  }
+  .btn-secondary:hover{background:var(--ink);color:var(--white);}
+
+  /* waveform merge signature */
+  .wave-stage{
+    position:relative;height:340px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .wave-card{
+    background:var(--white);
+    border-radius:28px;
+    width:100%;height:100%;
+    box-shadow:0 30px 60px -20px rgba(42,32,36,0.18);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;
+    border:1px solid var(--line);
+  }
+  .wave-row{display:flex;align-items:center;gap:2.5px;height:90px;}
+  .bar{
+    width:4px;border-radius:3px;
+    background:var(--ink-soft);
+    opacity:.35;
+  }
+  .bar.right{background:var(--brand);opacity:.9;}
+  .bar{animation:pulse 1.8s ease-in-out infinite;}
+  @keyframes pulse{
+    0%,100%{transform:scaleY(0.35);}
+    50%{transform:scaleY(1);}
+  }
+  .meet-label{
+    margin-top:22px;font-family:'Gowun Batang',serif;font-size:18px;color:var(--ink);
+  }
+  .meet-label span{color:var(--brand-deep);font-weight:700;}
+  @media (prefers-reduced-motion: reduce){
+    .bar{animation:none;transform:scaleY(0.7);}
+  }
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;}
+    .wave-stage{height:240px;order:-1;}
+  }
+
+  /* ---------- section shared ---------- */
+  section{padding:96px 0;}
+  .section-head{max-width:620px;margin-bottom:52px;}
+  .section-head h2{font-size:clamp(26px,3.4vw,38px);margin-top:14px;line-height:1.4;}
+  .section-head p{color:var(--ink-soft);margin-top:14px;font-size:16px;}
+
+  /* ---------- why / problem ---------- */
+  .why{background:var(--paper-deep);}
+  .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+  .why-card{
+    background:var(--white);border-radius:20px;padding:32px 26px;
+    border:1px solid var(--line);
+  }
+  .why-card .num{
+    font-family:'Gowun Batang',serif;font-size:15px;color:var(--brand-deep);font-weight:700;
+  }
+  .why-card h3{margin-top:14px;font-size:19px;}
+  .why-card p{margin-top:10px;color:var(--ink-soft);font-size:14.5px;}
+  @media (max-width:860px){ .why-grid{grid-template-columns:1fr;} }
+
+  /* ---------- how it works ---------- */
+  .how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);border-radius:24px;overflow:hidden;background:var(--white);}
+  .how-step{padding:38px 30px;border-right:1px solid var(--line);position:relative;}
+  .how-step:last-child{border-right:none;}
+  .how-step .step-icon{
+    width:46px;height:46px;border-radius:50%;
+    background:var(--rose-tint);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Gowun Batang',serif;color:var(--brand-deep);font-weight:700;font-size:18px;
+  }
+  .how-step h3{margin-top:18px;font-size:18px;}
+  .how-step p{margin-top:10px;color:var(--ink-soft);font-size:14.5px;}
+  @media (max-width:860px){
+    .how-grid{grid-template-columns:1fr;}
+    .how-step{border-right:none;border-bottom:1px solid var(--line);}
+  }
+
+  /* ---------- traction / stats ---------- */
+  .traction{background:var(--ink);color:var(--paper);}
+  .traction .eyebrow{color:#FF8FAB;}
+  .traction .section-head h2{color:var(--white);}
+  .traction .section-head p{color:#C9BBC0;}
+  .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+  .stat{padding:28px 6px;border-top:1px solid rgba(255,255,255,0.18);}
+  .stat .num{
+    font-family:'Gowun Batang',serif;font-size:clamp(30px,4vw,44px);color:var(--brand);font-weight:700;
+  }
+  .stat .label{margin-top:8px;font-size:13.5px;color:#C9BBC0;}
+  @media (max-width:860px){ .stat-grid{grid-template-columns:repeat(2,1fr);} }
+
+  /* ---------- positioning table ---------- */
+  .position table{width:100%;border-collapse:collapse;margin-top:8px;}
+  .position th,.position td{
+    padding:18px 16px;text-align:left;font-size:14.5px;border-bottom:1px solid var(--line);
+  }
+  .position th{font-family:'Gowun Batang',serif;font-weight:700;font-size:15px;color:var(--ink);}
+  .position td.us{color:var(--brand-deep);font-weight:700;}
+  .position tr:first-child th{border-top:1px solid var(--line);}
+  .position .rowlabel{color:var(--ink-soft);font-weight:500;}
+
+  /* ---------- safety / trust ---------- */
+  .trust-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+  .trust-list{margin-top:8px;}
+  .trust-item{display:flex;gap:16px;padding:18px 0;border-bottom:1px solid var(--line);}
+  .trust-item:last-child{border-bottom:none;}
+  .trust-dot{
+    flex-shrink:0;width:8px;height:8px;border-radius:50%;background:var(--brand);margin-top:8px;
+  }
+  .trust-item h4{font-size:16px;}
+  .trust-item p{color:var(--ink-soft);font-size:14.5px;margin-top:4px;}
+  .quote-card{
+    background:var(--paper-deep);border-radius:20px;padding:36px;border:1px solid var(--line);
+  }
+  .quote-card p{font-family:'Gowun Batang',serif;font-size:19px;line-height:1.6;color:var(--ink);}
+  .quote-card .who{margin-top:18px;font-size:13.5px;color:var(--ink-soft);font-weight:500;}
+  @media (max-width:860px){ .trust-grid{grid-template-columns:1fr;} }
+
+  /* ---------- final cta ---------- */
+  .final-cta{
+    background:linear-gradient(135deg,var(--brand) 0%, var(--brand-deep) 100%);
+    border-radius:32px;padding:64px 48px;text-align:center;color:var(--white);
+    margin:0 auto;
+  }
+  .final-cta h2{font-size:clamp(26px,3.6vw,40px);color:var(--white);}
+  .final-cta p{margin-top:14px;color:#FFE3EA;font-size:16px;}
+  .final-cta .hero-ctas{justify-content:center;margin-top:30px;}
+  .final-cta .btn-primary{background:var(--white);color:var(--brand-deep);}
+  .final-cta .btn-secondary{border-color:rgba(255,255,255,0.6);color:var(--white);}
+  .final-cta .btn-secondary:hover{background:var(--white);color:var(--brand-deep);}
+  @media (max-width:760px){ .final-cta{padding:48px 26px;} }
+
+  /* ---------- footer ---------- */
+  footer{padding:48px 0 40px;border-top:1px solid var(--line);}
+  .foot-grid{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;}
+  .foot-grid .logo{font-size:18px;}
+  .foot-meta{font-size:13px;color:var(--ink-soft);}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo">EUM<span class="dot">.</span></div>
+    <a href="https://github.com/UMC-Eum" target="_blank" rel="noopener" class="nav-cta">자세히 보기</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">A세대를 위한 음성 기반 시니어 소셜 플랫폼 · EUM</p>
+      <h1>마음을 잇다,<br><span class="hl">인연을 잇다</span>,<br>이음</h1>
+      <p class="sub">이음은 50대 이상을 위한 음성 기반 만남 서비스입니다. 외모와 스펙으로 줄 세우지 않고, 말투와 목소리로 먼저 마음을 엿볼 수 있도록 설계했습니다.</p>
+    </div>
+    <div class="wave-stage">
+      <div class="wave-card">
+        <div class="wave-row" id="waveRow"></div>
+        <div class="meet-label">두 목소리가 만나 <span>하나의 인연</span>이 됩니다</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="why" id="why">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">왜 이음인가</p>
+      <h2>2,700만 명, 외로움은 늘었지만<br>관계를 위한 인프라는 없었습니다</h2>
+      <p>전체 인구의 40% 이상을 차지하는 시니어층. 그중 41.3%가 외로움을 경험하고, 62.8%는 새로운 관계 형성을 희망합니다. 하지만 시니어를 위한 디지털 만남·커뮤니티 서비스는 전체 노인 돌봄 시장의 9% 이내에 불과합니다.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="num">PROBLEM 1</div>
+        <h3>외로움은 늘었지만 갈 곳이 없다</h3>
+        <p>시니어 인구 2,700만 명 중 41.3%가 외로움을 경험하고 있으며, 62.8%는 새로운 관계 형성을 희망한다고 답했습니다.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="num">PROBLEM 2</div>
+        <h3>"돌봄은 있지만, 관계는 없다"</h3>
+        <p>노인장기요양보험 규모는 매년 14.4%씩 증가해 12.6조 원에 달하지만, 시니어를 위한 만남·커뮤니티 서비스는 시장 구조의 9% 이내에 머물러 있습니다.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="num">PROBLEM 3</div>
+        <h3>사진·스펙 중심 매칭의 부담</h3>
+        <p>기존 데이팅 앱은 20·30대 중심의 사진 매칭 구조라 진입장벽이 높습니다. 이음은 목소리로 먼저 대화를 시작합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">매칭은 이렇게 이루어집니다</p>
+      <h2>목소리를 분석해<br>가장 닮은 인연을 찾습니다</h2>
+      <p>이음은 사용자의 음성을 분석해 취향을 벡터화하고, 코사인 유사도를 기반으로 정밀한 인연과 동호회를 연결합니다.</p>
+    </div>
+    <div class="how-grid reveal" style="grid-template-columns:repeat(5,1fr);">
+      <div class="how-step">
+        <div class="step-icon">1</div>
+        <h3>음성·텍스트 입력</h3>
+        <p>사용자가 자신의 이야기를 음성 또는 텍스트로 들려줍니다.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-icon">2</div>
+        <h3>STT 텍스트 추출</h3>
+        <p>음성을 텍스트로 변환해 분석 가능한 데이터로 만듭니다.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-icon">3</div>
+        <h3>VibeVector 부여</h3>
+        <p>500개 키워드를 기반으로 말투와 취향을 벡터값으로 환산합니다.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-icon">4</div>
+        <h3>코사인 유사도 분석</h3>
+        <p>벡터 간 유사도를 계산해 결을 닮은 사람을 찾아냅니다.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-icon">5</div>
+        <h3>맞춤 인연·동호회 매칭</h3>
+        <p>분석 결과를 바탕으로 인연과 동호회를 함께 추천합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--paper-deep);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">A세대 재정의</p>
+      <h2>이음은 시니어를<br>'노인'이 아닌 'A세대'로 다시 정의합니다</h2>
+      <p>Ageless · Advanced · Accomplished · Autonomous · Attractive · Alive — 55~64세 중장년층은 여전히 활동적이고 경제력을 갖춘 세대입니다.</p>
+    </div>
+    <div class="why-grid reveal">
+      <div class="why-card"><div class="num">A</div><h3>Ageless</h3><p>나이에 갇히지 않는 삶의 태도</p></div>
+      <div class="why-card"><div class="num">A</div><h3>Advanced</h3><p>디지털에도 익숙한 세대</p></div>
+      <div class="why-card"><div class="num">A</div><h3>Accomplished</h3><p>이미 많은 것을 이뤄온 자신감</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="traction" id="traction">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">지금까지의 이음</p>
+      <h2>작게 시작했지만,<br>분명한 반응을 확인했습니다</h2>
+      <p>가설을 검증하기 위해 직접 시니어 이용자를 만나고, 데모데이에서 결과로 증명했습니다.</p>
+    </div>
+    <div class="stat-grid reveal">
+      <div class="stat">
+        <div class="num">53건</div>
+        <div class="label">시니어 1:1 심층 인터뷰 진행</div>
+      </div>
+      <div class="stat">
+        <div class="num">1위</div>
+        <div class="label">2026.02 데모데이 서비스 접속·이벤트 참여 부문</div>
+      </div>
+      <div class="stat">
+        <div class="num">2개</div>
+        <div class="label">정식 등록 업종코드 (결혼상담업 · 데이팅 서비스)</div>
+      </div>
+      <div class="stat">
+        <div class="num">50+</div>
+        <div class="label">타겟 연령대 — 5060 시니어 1인 가구</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="position">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">경쟁력 확보 방안</p>
+      <h2>500개 키워드 기반 분석으로<br>매칭률을 2배 끌어올렸습니다</h2>
+    </div>
+    <div class="why-grid reveal">
+      <div class="why-card">
+        <div class="num">01</div>
+        <h3>키워드 기반 유사도 분석</h3>
+        <p>500개 키워드 기반 코사인 유사도 분석으로 이상형 매칭을 진행해, 기존 서비스 12% 대비 매칭률을 25%로, 약 2배 개선했습니다.</p>
+      </div>
+      <div class="why-card">
+        <div class="num">02</div>
+        <h3>최초의 음성 기반 자기소개</h3>
+        <p>이상형 등록까지 음성으로 진행하는 국내 최초의 시니어 소셜 플랫폼입니다.</p>
+      </div>
+      <div class="why-card">
+        <div class="num">03</div>
+        <h3>50배의 정보량</h3>
+        <p>500개 키워드는 기존 단답형 프로필 대비 약 50배에 달하는 취향 정보량을 담아냅니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--paper-deep);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Market Opportunity</p>
+      <h2>음성 기반 시니어 관계 시장,<br>지금부터가 시작입니다</h2>
+    </div>
+    <div class="why-grid reveal">
+      <div class="why-card">
+        <div class="num">TAM</div>
+        <h3>약 20조</h3>
+        <p>소셜 네트워크 서비스 시장 전체 규모 (출처: 유통업계 추산)</p>
+      </div>
+      <div class="why-card">
+        <div class="num">SAM</div>
+        <h3>약 4조</h3>
+        <p>시니어 대상 소셜 플랫폼 시장. 디지털 활용 시니어 인구 약 68.8% 기준 산출</p>
+      </div>
+      <div class="why-card">
+        <div class="num">SOM</div>
+        <h3>연 25억</h3>
+        <p>음성 기반 시니어 관계 형성 플랫폼 시장. 사용자 3만 명, 전환율 7%, ARPU 9,900원 기준 산출</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Business Model</p>
+      <h2>초기 B2C 구독·커머스에서<br>중장기 B2G로 확장합니다</h2>
+    </div>
+    <div class="trust-grid reveal">
+      <div>
+        <div class="trust-list">
+          <div class="trust-item">
+            <div class="trust-dot"></div>
+            <div>
+              <h4>B2C — 동호회 기반 커머스 수수료 (5~10%)</h4>
+              <p>등산 동호회 참여를 통해 등산 용품, 건강 음식 등 관련 커머스 광고로 수익을 창출합니다.</p>
+            </div>
+          </div>
+          <div class="trust-item">
+            <div class="trust-dot"></div>
+            <div>
+              <h4>B2C — 유료 구독제 (월 9,900원)</h4>
+              <p>동호회 사전 프로필 열람, 프로필 노출 강화, 매칭 프로필 수 확대 기능을 제공합니다.</p>
+            </div>
+          </div>
+          <div class="trust-item">
+            <div class="trust-dot"></div>
+            <div>
+              <h4>B2G — 지자체·공공기관 협력 (중장기)</h4>
+              <p>서울시 등 각 지자체, 통계청 및 국책연구기관과의 협력으로 사업을 확장합니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="quote-card">
+        <p>"이거 진짜 아이디어 좋은데요? 텍스트 치는 것보다 말씀하시는 게 훨씬 편하시나 봐요. 음성 중심이라 적적하신 노인분들이나 시니어들께 진짜 맞는 것 같습니다."</p>
+        <div class="who">— 한솔 쉬는 효도리, 데모데이 피드백</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--ink);color:var(--paper);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow" style="color:#FF8FAB;">Team</p>
+      <h2 style="color:var(--white);">이음을 만드는 사람들</h2>
+      <p style="color:#C9BBC0;">대표 안선우를 포함해 기획, 개발, 디자인이 함께 만들어가고 있습니다.</p>
+    </div>
+    <div class="stat-grid reveal">
+      <div class="stat"><div class="label" style="font-size:15px;color:var(--white);font-weight:700;">대표 (CEO / PM)</div><div class="label">서비스 기획 및 사업 총괄</div></div>
+      <div class="stat"><div class="label" style="font-size:15px;color:var(--white);font-weight:700;">CTO / 백엔드 리드</div><div class="label">기술 개발 총괄 · AI 매칭 시스템 설계</div></div>
+      <div class="stat"><div class="label" style="font-size:15px;color:var(--white);font-weight:700;">프론트엔드 리드</div><div class="label">UI 구조 설계 및 프론트 총괄, 백엔드 연동</div></div>
+      <div class="stat"><div class="label" style="font-size:15px;color:var(--white);font-weight:700;">디자이너 총괄</div><div class="label">UI/UX 디자인</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="why" id="trust">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">신뢰와 안전</p>
+      <h2>마음을 여는 것보다,<br>안전을 먼저 지킵니다</h2>
+    </div>
+    <div class="trust-grid">
+      <div class="reveal">
+        <div class="trust-list">
+          <div class="trust-item">
+            <div class="trust-dot"></div>
+            <div>
+              <h4>본인 인증 필수</h4>
+              <p>가입 시 실명 인증을 거쳐야 음성 소개와 매칭 기능을 사용할 수 있습니다.</p>
+            </div>
+          </div>
+          <div class="trust-item">
+            <div class="trust-dot"></div>
+            <div>
+              <h4>번호 비공개 통화</h4>
+              <p>서로의 연락처를 알리지 않고 앱 안에서 첫 통화를 연결합니다.</p>
+            </div>
+          </div>
+          <div class="trust-item">
+            <div class="trust-dot"></div>
+            <div>
+              <h4>운영진 사전 검토</h4>
+              <p>매칭 전 운영진이 프로필과 음성 소개를 직접 확인합니다.</p>
+            </div>
+          </div>
+          <div class="trust-item">
+            <div class="trust-dot"></div>
+            <div>
+              <h4>신고·차단 시스템</h4>
+              <p>불편한 연락은 즉시 신고하고 차단할 수 있습니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="quote-card reveal">
+        <p>"사진을 먼저 보내야 한다는 게 늘 부담이었는데, 목소리로 먼저 인사할 수 있다니 마음이 한결 편해졌어요."</p>
+        <div class="who">— 사용자 인터뷰 참여자, 60대</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Scale-Up</p>
+      <h2>성장 전략</h2>
+    </div>
+    <div class="how-grid reveal">
+      <div class="how-step">
+        <div class="step-icon">4–7월</div>
+        <h3>MVP 고도화</h3>
+        <p>동호회 주요 기능 구현 및 매칭 정확도 개선</p>
+      </div>
+      <div class="how-step">
+        <div class="step-icon">7–8월</div>
+        <h3>초기 사용자 확보</h3>
+        <p>활동 커뮤니티 중심의 초기 유입 확보</p>
+      </div>
+      <div class="how-step">
+        <div class="step-icon">9–10월</div>
+        <h3>시장 검증</h3>
+        <p>베타 테스트를 통한 메시지·음성 사용량, 매칭 클릭률, 동호회 참여율 검증</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="wrap">
+    <div class="final-cta reveal">
+      <p class="eyebrow" style="color:#FFE3EA;">EUM</p>
+      <h2>당신의 다음 인연,<br>목소리로 먼저 시작해보세요</h2>
+      <p>이음은 지금도 시니어 이용자들의 이야기를 듣고, 서비스를 다듬어가고 있습니다.</p>
+      <div class="hero-ctas">
+        <a href="#" class="btn-primary">서비스 문의하기</a>
+        <a href="#" class="btn-secondary">제휴·투자 문의</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div class="logo">EUM<span class="dot">.</span></div>
+    <div class="foot-meta">© 2026 EUM. 업종코드 722000 · 724000 등록. · <a href="mailto:eumofficial@gmail.com" style="color:var(--brand-deep);font-weight:600;">eumofficial@gmail.com</a></div>
+  </div>
+</footer>
+
+<script>
+  // build waveform bars: two groups merging visually
+  const row = document.getElementById('waveRow');
+  const n = 36;
+  for(let i=0;i<n;i++){
+    const bar = document.createElement('div');
+    bar.className = 'bar' + (i >= n/2 ? ' right' : '');
+    const h = 16 + Math.round(Math.sin(i/2)*14) + Math.round(Math.random()*10);
+    bar.style.height = h + 'px';
+    bar.style.animationDelay = (i*0.045) + 's';
+    row.appendChild(bar);
+  }
+
+  // scroll reveal
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); } });
+  },{threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+
+</body>
+</html>
